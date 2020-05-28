@@ -4,6 +4,9 @@ module.exports = function(async, Club, Users, _) {
     return {
         SetRouting : function(router) {
             router.get('/home', this.homePage);
+            router.get('/logout', this.logout);
+
+            router.post('/home', this.postHomePage);
             
         },
 
@@ -51,16 +54,38 @@ module.exports = function(async, Club, Users, _) {
                     data: res3
                 });
             })
+        },
+
+        postHomePage : function(req, res){
+
+            async.parallel([
+
+                function(callback){
+                    Club.updateOne({
+                        '_id' : req.body.id,
+                        'fans.username' : {$ne : req.user.username}
+                    },
+                        {
+                            $push : {fans: {
+                                username: req.user.username,
+                                email: req.user.email
+                            }}
+                        }, (err, count) => {
+                            console.log('success', count);
+                            callback(err, count);
+                        }
+                    )
+                }
+            ], (err, results) => {
+                res.redirect('/home');
+            });
+        },
+
+        logout : function(req, res){
+            req.logout();
+            req.session.destroy(err => {
+                res.redirect('/');
+            })
         }
     }
 }
-
-// Club.find({}, (err, result) => {
-//     const dataChunk = [];
-//     const chunkSize = 3;
-    
-//     for(let i = 0; i < result.length; i+= chunkSize){
-//         dataChunk.push(result.slice(i, i + chunkSize));
-//     }
-//     res.render('home', {title : 'Footballkik |Home', clubs: dataChunk});
-// })

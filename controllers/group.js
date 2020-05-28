@@ -3,7 +3,7 @@ module.exports = function(Users, async) {
     return {
         SetRouting : function(router) {
             router.get('/group/:name', this.groupPage);
-
+            router.get('/logout', this.logout);
             
             router.post('/group/:name', this.groupPostPage);
             
@@ -161,7 +161,13 @@ module.exports = function(Users, async) {
             ], (err, results) => {
                 res.redirect('/group/'+ req.params.name);
             });
-        }
+        },
 
+        logout : function(req, res){
+            req.logout();
+            req.session.destroy(err => {
+                res.redirect('/');
+            })
+        }
     }
 }
