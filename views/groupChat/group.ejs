@@ -18,8 +18,6 @@
 
 <body>
 
-    <%- include ('../partials/navbar.ejs') %>
-
     <div class="col-md-12">
         
 
@@ -39,7 +37,12 @@
 
                                             </div>
                                             <div class="user cover-img">
-                                                <img src="https://placehold.it/300x300" class="img-circle" alt="">
+                                                <% if(user.userImage === "default.png"){ %>
+                                                <img src="../uploads/<%= user.userImage %>" class="img-circle" alt="">
+                                                <% } else{ %>
+                                                    <img src="<%= user.userImage %>" class="img-circle" alt="">
+                                                <% } %>
+                                                <!-- <img src="https://placehold.it/300x300" class="img-circle" alt=""> -->
                                             </div>
                                             <div class="content">
                                                 <div class="main">

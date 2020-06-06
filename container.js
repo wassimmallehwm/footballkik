@@ -10,7 +10,8 @@ const simpleDependencies = [
     ['async', 'async'],
     ['validator', 'express-validator'],
     ['Club', './models/clubs'],
-    ['Users', './models/users']
+    ['Users', './models/users'],
+    ['Message', './models/message']
 ];
 
 

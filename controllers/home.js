@@ -71,7 +71,6 @@ module.exports = function(async, Club, Users, _) {
                                 email: req.user.email
                             }}
                         }, (err, count) => {
-                            console.log('success', count);
                             callback(err, count);
                         }
                     )

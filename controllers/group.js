@@ -22,7 +22,6 @@ module.exports = function(Users, async) {
                 }
             ], (err, results) => {
                 const res1 = results[0];
-                console.log('results', res1);
                 res.render('groupChat/group', {
                     title : 'Footballkik | Group',
                     user: req.user,
